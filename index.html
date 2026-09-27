@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>GBP SEO Audit Pro</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="shell">
+  <header class="top">
+    <div class="brand"><span>G</span><div><b>GBP SEO Audit Pro</b><small>Google Business Profile Analyzer</small></div></div>
+    <div class="secure">● Policy-safe audit</div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div>
+        <span class="eyebrow">LOCAL SEO • GBP AUDIT</span>
+        <h1>Paste your Google Maps / GBP link.<br><em>Get the audit automatically.</em></h1>
+        <p>No long forms. The tool retrieves available public place data, calculates the audit, checks keyword-risk patterns and builds an optimization plan.</p>
+      </div>
+      <div class="hero-badge"><strong>100%</strong><span>automated audit flow</span></div>
+    </section>
+
+    <section class="search-card">
+      <label for="mapsUrl">Google Business Profile / Google Maps URL</label>
+      <div class="search-row">
+        <input id="mapsUrl" type="url" placeholder="https://maps.google.com/... or https://maps.app.goo.gl/..." autocomplete="off">
+        <button id="auditBtn">Analyze Profile</button>
+      </div>
+      <div class="hint">Paste the public Google Maps link of the business. You do not need to type the business name, phone, address or review count.</div>
+      <div id="message" class="message"></div>
+    </section>
+
+    <section id="loading" class="loading hidden"><div class="spinner"></div><b>Analyzing Google Business Profile…</b><span>Retrieving available place details and calculating checks.</span></section>
+
+    <section id="dashboard" class="hidden">
+      <div class="profile-head">
+        <div>
+          <span id="businessType" class="tag">BUSINESS PROFILE</span>
+          <h2 id="businessName">—</h2>
+          <p id="address">—</p>
+          <a id="mapsLink" target="_blank" rel="noopener">Open on Google Maps ↗</a>
+        </div>
+        <div class="score"><span id="score">—</span><small>/100</small><label>SEO audit score</label></div>
+      </div>
+
+      <div class="stats">
+        <div><small>Rating</small><strong id="rating">—</strong><span id="stars"></span></div>
+        <div><small>Reviews</small><strong id="reviewCount">—</strong><span>Google user ratings</span></div>
+        <div><small>Phone</small><strong id="phone">—</strong><span>Public listing data</span></div>
+        <div><small>Website</small><strong id="website">—</strong><span>Public listing data</span></div>
+      </div>
+
+      <div class="grid">
+        <div class="card">
+          <div class="card-title"><h3>Profile information</h3><span>Auto-fetched</span></div>
+          <div id="infoGrid" class="info-grid"></div>
+        </div>
+        <div class="card">
+          <div class="card-title"><h3>Issues & checks</h3><span id="issueSummary"></span></div>
+          <div id="issues"></div>
+        </div>
+      </div>
+
+      <div class="grid">
+        <div class="card">
+          <div class="card-title"><h3>Keyword safety</h3><span>No keyword stuffing recommendations</span></div>
+          <div id="keywords"></div>
+        </div>
+        <div class="card">
+          <div class="card-title"><h3>Review health</h3><span>Based on available listing data</span></div>
+          <div id="reviewHealth"></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title"><h3>Full optimization plan</h3><button class="print" onclick="window.print()">Print / Save PDF</button></div>
+        <div class="plans">
+          <div><span>7 DAYS</span><h4>Fix the basics</h4><ul id="plan7"></ul></div>
+          <div><span>30 DAYS</span><h4>Build profile depth</h4><ul id="plan30"></ul></div>
+          <div><span>60 DAYS</span><h4>Measure & improve</h4><ul id="plan60"></ul></div>
+        </div>
+      </div>
+
+      <div class="notice">Live Google data depends on the official Google Places API and the fields available for the profile. The tool never invents missing business facts and does not recommend fake reviews, fake locations, keyword stuffing or guaranteed rankings.</div>
+    </section>
+  </main>
+</div>
+<script src="app.js"></script>
+</body>
+</html>
