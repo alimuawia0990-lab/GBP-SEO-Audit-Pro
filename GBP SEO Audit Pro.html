@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>GBP SEO Audit Pro</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#FFFFFF; --surface:#F6F8FB; --border:#E4E9F1;
+  --navy:#101828; --gray:#5B6472; --gray-soft:#8A93A3;
+  --blue:#2563EB; --blue-dark:#1D4ED8; --blue-soft:#EAF1FF;
+  --green:#16A34A; --green-soft:#E9F9EF;
+  --orange:#D97706; --orange-soft:#FFF4E1;
+  --red:#DC2626; --red-soft:#FDEBEC;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+*{box-sizing:border-box}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0E1116; --surface:#151A21; --border:#242B35;
+    --navy:#F2F4F7; --gray:#9AA4B2; --gray-soft:#6B7482;
+    --blue-soft:#152238; --green-soft:#0F241A; --orange-soft:#2A2011; --red-soft:#2A1517;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0E1116; --surface:#151A21; --border:#242B35;
+  --navy:#F2F4F7; --gray:#9AA4B2; --gray-soft:#6B7482;
+  --blue-soft:#152238; --green-soft:#0F241A; --orange-soft:#2A2011; --red-soft:#2A1517;
+}
+body{margin:0;background:var(--bg);color:var(--navy);font-family:'Inter',system-ui,sans-serif;}
+.mono{font-family:'IBM Plex Mono',monospace;}
+a{color:inherit}
+button{font-family:inherit;cursor:pointer}
+
+.app{display:flex;min-height:100vh}
+.side{width:230px;flex-shrink:0;background:var(--surface);border-right:1px solid var(--border);
+  padding:20px 14px;position:sticky;top:0;height:100vh;overflow-y:auto}
+.brand{display:flex;align-items:center;gap:10px;padding:6px 8px 22px}
+.brand .mark{width:30px;height:30px;border-radius:8px;background:var(--blue);
+  display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:14px}
+.brand .name{font-weight:700;font-size:14.5px;line-height:1.2}
+.brand .name span{display:block;font-weight:500;color:var(--gray-soft);font-size:11px}
+
+.nav-item{display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:9px;
+  font-size:13.5px;font-weight:500;color:var(--gray);margin-bottom:2px;border:none;background:none;width:100%;text-align:left}
+.nav-item:hover{background:var(--border)}
+.nav-item.active{background:var(--blue-soft);color:var(--blue-dark);font-weight:600}
+.nav-item .dot{width:6px;height:6px;border-radius:50%;background:currentColor;opacity:.55;flex-shrink:0}
+
+.main{flex:1;min-width:0}
+.topbar{display:flex;align-items:center;justify-content:space-between;gap:16px;
+  padding:16px 26px;border-bottom:1px solid var(--border);flex-wrap:wrap;position:sticky;top:0;background:var(--bg);z-index:5}
+.biz{display:flex;flex-direction:column}
+.biz b{font-size:15px}
+.biz small{color:var(--gray-soft);font-size:12px}
+.topbar-actions{display:flex;gap:10px;flex-wrap:wrap}
+.btn{border-radius:8px;padding:9px 15px;font-size:13px;font-weight:600;border:1px solid var(--border);
+  background:var(--bg);color:var(--navy);white-space:nowrap}
+.btn.primary{background:var(--blue);color:#fff;border-color:var(--blue)}
+.btn.primary:hover{background:var(--blue-dark)}
+.btn:disabled{opacity:.55;cursor:not-allowed}
+
+.demo-banner{margin:14px 26px 0;background:var(--orange-soft);border:1px solid #F0D6A6;color:#7A4E06;
+  font-size:12.5px;padding:9px 14px;border-radius:8px;display:flex;gap:8px;align-items:center}
+:root[data-theme="dark"] .demo-banner, @media (prefers-color-scheme:dark){.demo-banner{color:#F0C878}}
+
+.view{padding:22px 26px 60px;max-width:1180px}
+.view h1{font-size:19px;margin:0 0 3px}
+.view .sub{color:var(--gray-soft);font-size:13px;margin:0 0 20px}
+
+.grid{display:grid;gap:14px}
+.grid.cols-4{grid-template-columns:repeat(4,1fr)}
+.grid.cols-3{grid-template-columns:repeat(3,1fr)}
+.grid.cols-2{grid-template-columns:repeat(2,1fr)}
+@media(max-width:900px){.grid.cols-4{grid-template-columns:repeat(2,1fr)}.grid.cols-3{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:640px){.grid.cols-4,.grid.cols-3,.grid.cols-2{grid-template-columns:1fr}.side{display:none}.topbar{padding:12px 16px}.view{padding:16px}}
+
+.card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px}
+.metric .label{font-size:12px;color:var(--gray-soft);font-weight:600;margin-bottom:6px}
+.metric .value{font-size:22px;font-weight:700}
+.metric .note{font-size:11.5px;color:var(--gray-soft);margin-top:4px}
+
+.score-wrap{display:flex;gap:22px;align-items:center;flex-wrap:wrap}
+.ring{position:relative;width:118px;height:118px;flex-shrink:0}
+.ring svg{transform:rotate(-90deg)}
+.ring .num{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.ring .num b{font-size:26px}
+.ring .num span{font-size:10.5px;color:var(--gray-soft)}
+.bar-outer{background:var(--border);border-radius:6px;height:8px;overflow:hidden}
+.bar-inner{height:100%;background:var(--blue);border-radius:6px}
+
+.section-title{font-size:13px;font-weight:700;margin:26px 0 10px;display:flex;align-items:center;gap:8px}
+
+table{width:100%;border-collapse:collapse;font-size:13px}
+th{text-align:left;color:var(--gray-soft);font-weight:600;font-size:11.5px;padding:8px 10px;border-bottom:1px solid var(--border)}
+td{padding:10px 10px;border-bottom:1px solid var(--border);vertical-align:top}
+tr:last-child td{border-bottom:none}
+
+.badge{display:inline-flex;align-items:center;gap:5px;padding:3px 9px;border-radius:100px;font-size:11.5px;font-weight:600}
+.badge.pass{background:var(--green-soft);color:var(--green)}
+.badge.warn{background:var(--orange-soft);color:var(--orange)}
+.badge.crit{background:var(--red-soft);color:var(--red)}
+.dot-i{width:6px;height:6px;border-radius:50%;background:currentColor}
+
+.risk.low{color:var(--green)} .risk.medium{color:var(--orange)} .risk.high{color:var(--red)}
+
+.issue-row{display:flex;gap:10px;padding:10px 4px;border-bottom:1px solid var(--border);font-size:13px}
+.issue-row:last-child{border-bottom:none}
+.issue-row .sw{width:9px;height:9px;border-radius:50%;margin-top:4px;flex-shrink:0}
+.issue-row b{display:block;font-size:13px}
+.issue-row p{margin:2px 0 0;color:var(--gray);font-size:12.5px}
+
+.tabs{display:flex;gap:6px;margin-bottom:16px}
+.tab{padding:7px 14px;border-radius:100px;border:1px solid var(--border);background:var(--bg);font-size:12.5px;font-weight:600;color:var(--gray)}
+.tab.active{background:var(--navy);color:var(--bg);border-color:var(--navy)}
+
+.plan-card{border-left:3px solid var(--blue);background:var(--surface);border-radius:0 10px 10px 0;
+  padding:14px 16px;margin-bottom:10px}
+.plan-card .top{display:flex;justify-content:space-between;gap:10px;align-items:center;margin-bottom:6px}
+.plan-card h4{margin:0;font-size:13.5px}
+.plan-card dl{margin:8px 0 0;font-size:12.5px;color:var(--gray)}
+.plan-card dt{font-weight:600;color:var(--navy);margin-top:6px}
+.plan-card dd{margin:1px 0 0}
+
+.review-bar-row{display:flex;align-items:center;gap:10px;margin-bottom:8px;font-size:12.5px}
+.review-bar-row .lbl{width:38px;color:var(--gray-soft)}
+.review-bar-row .bo{flex:1;background:var(--border);border-radius:5px;height:9px;overflow:hidden}
+.review-bar-row .bi{height:100%;background:var(--blue);border-radius:5px}
+.review-bar-row .n{width:34px;text-align:right;color:var(--gray-soft)}
+
+.recent-review{padding:11px 0;border-bottom:1px solid var(--border);font-size:12.5px}
+.recent-review:last-child{border-bottom:none}
+.recent-review .h{display:flex;justify-content:space-between;color:var(--gray-soft);margin-bottom:3px}
+
+.settings-row{display:flex;justify-content:space-between;align-items:center;padding:13px 0;border-bottom:1px solid var(--border)}
+.settings-row:last-child{border-bottom:none}
+.settings-row b{font-size:13px} .settings-row p{margin:2px 0 0;font-size:12px;color:var(--gray-soft)}
+.pill{font-size:11.5px;font-weight:600;padding:3px 10px;border-radius:100px;background:var(--red-soft);color:var(--red)}
+
+.hide{display:none}
+</style>
+</head>
+<body>
+<div class="app">
+  <aside class="side">
+    <div class="brand"><div class="mark">G</div><div class="name">GBP SEO Audit Pro<span>Local visibility, policy-safe</span></div></div>
+    <nav id="nav"></nav>
+  </aside>
+
+  <main class="main">
+    <div class="topbar">
+      <div class="biz"><b>The Grind House Coffee</b><small>Coffee shop · Austin, TX</small></div>
+      <div class="topbar-actions">
+        <button class="btn" id="connectBtn">Connect Google Business Profile</button>
+        <button class="btn primary" id="downloadBtn">Download report</button>
+      </div>
+    </div>
+    <div class="demo-banner">● This workspace is running on sample audit data for demonstration — connect a live profile to replace it with your real Google Business Profile data.</div>
+    <div id="views"></div>
+  </main>
+</div>
+
+<script>
+const NAV = [
+  {id:'dashboard', label:'Dashboard'},
+  {id:'audit', label:'Audit Profile'},
+  {id:'keywords', label:'Keywords'},
+  {id:'reviews', label:'Reviews'},
+  {id:'plan', label:'Optimization Plan'},
+  {id:'performance', label:'Performance'},
+  {id:'reports', label:'Reports'},
+  {id:'settings', label:'Settings'},
+];
+
+const nav = document.getElementById('nav');
+NAV.forEach(n=>{
+  const b = document.createElement('button');
+  b.className = 'nav-item'; b.dataset.id = n.id;
+  b.innerHTML = `<span class="dot"></span>${n.label}`;
+  b.onclick = ()=>showView(n.id);
+  nav.appendChild(b);
+});
+
+function ring(pct,color){
+  const r=50,c=2*Math.PI*r,off=c-(pct/100)*c;
+  return `<svg width="118" height="118" viewBox="0 0 118 118">
+    <circle cx="59" cy="59" r="${r}" fill="none" stroke="var(--border)" stroke-width="10"/>
+    <circle cx="59" cy="59" r="${r}" fill="none" stroke="${color}" stroke-width="10"
+      stroke-dasharray="${c}" stroke-dashoffset="${off}" stroke-linecap="round"/>
+  </svg>`;
+}
+
+const AUDIT = [
+  {f:'Business name', v:'The Grind House Coffee', s:'pass', note:'Matches real-world signage — no added keywords.'},
+  {f:'Primary category', v:'Coffee shop', s:'pass', note:'Accurate to core offering.'},
+  {f:'Additional categories', v:'Cafe, Espresso bar', s:'pass', note:'Relevant, not padded.'},
+  {f:'Address', v:'214 E 6th St, Austin, TX', s:'pass', note:'Verified address on file.'},
+  {f:'Service area', v:'Not set', s:'warn', note:'Optional for a storefront, but delivery orders could benefit.'},
+  {f:'Phone', v:'(512) 555-0148', s:'pass', note:'Matches website footer number.'},
+  {f:'Website', v:'grindhousecoffee.com', s:'pass', note:'Reachable, matches business name.'},
+  {f:'Opening hours', v:'Set, Mon–Sun', s:'pass', note:'Consistent with website hours.'},
+  {f:'Special hours', v:'Not set for upcoming holiday', s:'warn', note:'Labor Day hours missing — risk of "closed when open" complaints.'},
+  {f:'Business description', v:'Present, 620 characters', s:'pass', note:'Descriptive, no keyword stuffing detected.'},
+  {f:'Services', v:'6 of 6 categories described', s:'pass', note:'Well-detailed.'},
+  {f:'Attributes', v:'8 selected', s:'pass', note:'Outdoor seating, Wi-Fi, Wheelchair accessible, etc.'},
+  {f:'Photos', v:'11 photos, last upload 74 days ago', s:'warn', note:'Below the 30-day freshness benchmark for active profiles.'},
+  {f:'Posts', v:'No post in 45 days', s:'crit', note:'Inactive posting reduces engagement signals.'},
+  {f:'Reviews', v:'182 reviews, 4.6 avg', s:'pass', note:'Healthy volume and rating.'},
+];
+
+const KEYWORDS = [
+  {k:'coffee shop', loc:'Category, Description', rel:'High', risk:'low', rec:'Keep — matches real category and offering.'},
+  {k:'austin', loc:'Description, Website', rel:'High', risk:'low', rec:'Fine in description; do not add to business name.'},
+  {k:'best coffee austin', loc:'Description', rel:'Medium', risk:'medium', rec:'Superlative claims can read as unverifiable — soften to "specialty coffee".'},
+  {k:'downtown austin coffee shop 24 hours', loc:'—', rel:'Low', risk:'high', rec:'Not present, and should stay that way — false hours claim risk plus stuffing pattern.'},
+  {k:'espresso bar', loc:'Additional category', rel:'High', risk:'low', rec:'Accurate secondary category, keep.'},
+  {k:'oat milk latte', loc:'Services', rel:'Medium', risk:'low', rec:'Good — specific, matches an actual menu item.'},
+];
+
+const ISSUES = [
+  {level:'crit', title:'No Google Post in 45 days', desc:'Profiles with inactive posting see reduced local pack engagement.'},
+  {level:'crit', title:'Business description could be stronger on differentiators', desc:'Mentions products but not what makes the shop distinct locally.'},
+  {level:'warn', title:'Photos not refreshed in 74 days', desc:'Add recent interior, product, and team photos.'},
+  {level:'warn', title:'Special hours missing for upcoming holiday', desc:'Set holiday hours to avoid "closed when open" reports.'},
+  {level:'warn', title:'8 unanswered reviews', desc:'Responding within 48 hours is linked to higher trust signals.'},
+  {level:'pass', title:'No keyword stuffing detected', desc:'Business name, categories and description all check out.'},
+  {level:'pass', title:'NAP consistency verified', desc:'Name, address and phone match the live website.'},
+];
+
+const REVIEWS = {total:182, avg:4.6, dist:[121,38,12,7,4], unanswered:8,
+  recent:[
+    {name:'Priya M.', stars:5, text:'Favorite spot for a morning oat milk latte, staff remembers my order.', answered:true},
+    {name:'Jonah T.', stars:4, text:'Great coffee, gets crowded around 9am on weekdays.', answered:false},
+    {name:'Casey R.', stars:2, text:'Order was wrong twice this month, hoping it improves.', answered:false},
+  ]};
+
+const PLAN = {
+  '7-day':[
+    {p:'No Google Post in the last 45 days', w:'Posts are a direct, controllable engagement signal.', a:'Publish 2 posts this week: one offer, one behind-the-scenes update.', pr:'High', area:'Engagement'},
+    {p:'8 reviews unanswered', w:'Response rate and speed correlate with trust and conversion.', a:'Reply to all open reviews within 48 hours using a personal, non-templated tone.', pr:'High', area:'Reputation'},
+  ],
+  '30-day':[
+    {p:'Photo library is stale (74 days)', w:'Fresh photos are a known freshness signal in ranking factors Google has disclosed.', a:'Upload 15–20 new photos: interior, drinks, team, exterior signage at different times of day.', pr:'Medium', area:'Completeness'},
+    {p:'Description lacks a clear differentiator', w:'A generic description blends in with nearby competitors.', a:'Rewrite the description to highlight your roasting process or neighborhood history, without adding unrelated keywords.', pr:'Medium', area:'Relevance'},
+  ],
+  '60-day':[
+    {p:'No structured review-response workflow', w:'One-off responses don\'t scale as review volume grows.', a:'Set a weekly cadence for review responses and track average response time.', pr:'Low', area:'Operations'},
+    {p:'Service area not configured', w:'Delivery/catering customers searching nearby may not surface the profile.', a:'Add a service area if delivery or catering is offered, matching real coverage only.', pr:'Low', area:'Discoverability'},
+  ],
+};
+
+function badge(s){
+  const map={pass:['pass','Passed'],warn:['warn','Warning'],crit:['crit','Critical']};
+  const [cls,label]=map[s];
+  return `<span class="badge ${cls}"><span class="dot-i"></span>${label}</span>`;
+}
+
+function viewDashboard(){
+  return `
+  <h1>Dashboard</h1>
+  <p class="sub">Overview of The Grind House Coffee's Google Business Profile health. Sample data.</p>
+
+  <div class="grid cols-2" style="margin-bottom:14px">
+    <div class="card score-wrap">
+      <div class="ring">${ring(78,'var(--blue)')}<div class="num"><b>78</b><span>SEO score</span></div></div>
+      <div style="flex:1;min-width:160px">
+        <div class="metric" style="margin-bottom:10px"><div class="label">Profile completeness</div>
+          <div class="bar-outer"><div class="bar-inner" style="width:86%"></div></div>
+          <div class="note">86% — Posts and service area still pending.</div>
+        </div>
+        <div class="note">Score reflects completeness, keyword health, review engagement and policy safety. Not a ranking guarantee.</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="metric"><div class="label">Reviews</div><div class="value">182 <span style="font-size:13px;color:var(--gray-soft);font-weight:500">· 4.6 avg</span></div>
+      <div class="note">8 unanswered · trending up 6% this month</div></div>
+    </div>
+  </div>
+
+  <div class="grid cols-4">
+    <div class="card metric"><div class="label">Photos</div><div class="value">11</div><div class="note">Last upload 74d ago</div></div>
+    <div class="card metric"><div class="label">Services listed</div><div class="value">6/6</div><div class="note">All categories described</div></div>
+    <div class="card metric"><div class="label">Categories</div><div class="value">3</div><div class="note">1 primary, 2 additional</div></div>
+    <div class="card metric"><div class="label">Website</div><div class="value">Linked</div><div class="note">grindhousecoffee.com</div></div>
+    <div class="card metric"><div class="label">Phone</div><div class="value">Verified</div><div class="note">Matches website</div></div>
+    <div class="card metric"><div class="label">Business hours</div><div class="value">Set</div><div class="note">Special hours missing</div></div>
+    <div class="card metric"><div class="label">Posts (30d)</div><div class="value">0</div><div class="note">Inactive — needs attention</div></div>
+    <div class="card metric"><div class="label">Performance</div><div class="value">Demo</div><div class="note">Connect GBP for live views/clicks</div></div>
+  </div>
+
+  <div class="section-title">Error checker</div>
+  <div class="card">
+    ${ISSUES.map(i=>`<div class="issue-row"><div class="sw" style="background:${i.level==='crit'?'var(--red)':i.level==='warn'?'var(--orange)':'var(--green)'}"></div>
+      <div><b>${i.title}</b><p>${i.desc}</p></div></div>`).join('')}
+  </div>`;
+}
+
+function viewAudit(){
+  return `
+  <h1>Audit Profile</h1>
+  <p class="sub">Field-by-field review of the live listing information.</p>
+  <div class="card" style="padding:0;overflow-x:auto">
+  <table><thead><tr><th>Field</th><th>Current value</th><th>Status</th><th>Note</th></tr></thead><tbody>
+  ${AUDIT.map(r=>`<tr><td><b>${r.f}</b></td><td>${r.v}</td><td>${badge(r.s)}</td><td style="color:var(--gray);font-size:12.5px">${r.note}</td></tr>`).join('')}
+  </tbody></table></div>
+
+  <div class="section-title">Google policy safety</div>
+  <p class="sub" style="margin-top:-4px">This profile is checked against Google's guidelines — no bypass suggestions are ever generated here.</p>
+  <div class="grid cols-2">
+    <div class="card">
+      ${[['Keyword stuffing in name','pass'],['Unnecessary location keywords','pass'],['Unnecessary service keywords','pass'],['Fake or virtual location indicators','pass']]
+        .map(([t,s])=>`<div class="issue-row"><div class="sw" style="background:var(--green)"></div><div><b>${t}</b><p>No risk detected</p></div></div>`).join('')}
+    </div>
+    <div class="card">
+      ${[['Duplicate profile indicators','pass'],['Misleading information','pass'],['Review manipulation risk','pass'],['Unsupported business information','warn']]
+        .map(([t,s])=>`<div class="issue-row"><div class="sw" style="background:${s==='pass'?'var(--green)':'var(--orange)'}"></div><div><b>${t}</b><p>${s==='pass'?'No risk detected':'Service area claim not yet backed by delivery radius setup'}</p></div></div>`).join('')}
+    </div>
+  </div>`;
+}
+
+function viewKeywords(){
+  return `
+  <h1>Keyword audit</h1>
+  <p class="sub">Keywords detected across name, description, services, website and categories.</p>
+  <div class="card" style="padding:0;overflow-x:auto">
+  <table><thead><tr><th>Keyword</th><th>Location</th><th>Relevance</th><th>Risk</th><th>Recommendation</th></tr></thead><tbody>
+  ${KEYWORDS.map(k=>`<tr><td><b>${k.k}</b></td><td>${k.loc}</td><td>${k.rel}</td>
+    <td class="risk ${k.risk}" style="font-weight:600;text-transform:capitalize">${k.risk}</td>
+    <td style="color:var(--gray);font-size:12.5px">${k.rec}</td></tr>`).join('')}
+  </tbody></table></div>
+  <p class="sub" style="margin-top:14px">Keywords are never recommended for insertion into the business name unless they are part of the business's real-world name.</p>`;
+}
+
+function viewReviews(){
+  const labels=['5★','4★','3★','2★','1★'];
+  const max=Math.max(...REVIEWS.dist);
+  return `
+  <h1>Review analytics</h1>
+  <p class="sub">${REVIEWS.total} total reviews · ${REVIEWS.avg} average rating · ${REVIEWS.unanswered} unanswered</p>
+  <div class="grid cols-2">
+    <div class="card">
+      <div class="section-title" style="margin-top:0">Rating distribution</div>
+      ${labels.map((l,i)=>`<div class="review-bar-row"><span class="lbl">${l}</span>
+        <div class="bo"><div class="bi" style="width:${(REVIEWS.dist[i]/max)*100}%"></div></div>
+        <span class="n">${REVIEWS.dist[i]}</span></div>`).join('')}
+      <p class="note" style="margin-top:10px">Trend: rating has held steady at 4.5–4.6 over the last 90 days.</p>
+    </div>
+    <div class="card">
+      <div class="section-title" style="margin-top:0">Recent reviews</div>
+      ${REVIEWS.recent.map(r=>`<div class="recent-review"><div class="h"><span>${r.name} · ${'★'.repeat(r.stars)}${'☆'.repeat(5-r.stars)}</span><span>${r.answered?'Replied':'Unanswered'}</span></div>${r.text}</div>`).join('')}
+    </div>
+  </div>`;
+}
+
+function viewPlan(){
+  return `
+  <h1>Optimization plan</h1>
+  <p class="sub">Personalized, policy-safe action plan. No ranking positions are promised.</p>
+  <div class="tabs" id="planTabs">
+    ${Object.keys(PLAN).map((k,i)=>`<button class="tab ${i===0?'active':''}" data-k="${k}">${k}</button>`).join('')}
+  </div>
+  <div id="planBody"></div>`;
+}
+
+function renderPlanBody(key){
+  const items = PLAN[key];
+  document.getElementById('planBody').innerHTML = items.map(it=>`
+    <div class="plan-card">
+      <div class="top"><h4>${it.p}</h4><span class="badge ${it.pr==='High'?'crit':it.pr==='Medium'?'warn':'pass'}">${it.pr} priority</span></div>
+      <dl>
+        <dt>Why it matters</dt><dd>${it.w}</dd>
+        <dt>Recommended action</dt><dd>${it.a}</dd>
+        <dt>Expected improvement area</dt><dd>${it.area}</dd>
+      </dl>
+    </div>`).join('');
+}
+
+function viewPerformance(){
+  return `
+  <h1>Performance</h1>
+  <p class="sub">Requires an authorized Google Business Profile connection for live data — shown here as sample data.</p>
+  <div class="grid cols-3">
+    ${[['Search views','4,820'],['Maps views','2,140'],['Website clicks','312'],['Phone clicks','96'],['Direction requests','188'],['Total actions','596']]
+      .map(([l,v])=>`<div class="card metric"><div class="label">${l}</div><div class="value">${v}</div><div class="note">Last 30 days · demo</div></div>`).join('')}
+  </div>`;
+}
+
+function viewReports(){
+  return `
+  <h1>Reports</h1>
+  <p class="sub">Generate a shareable summary of this audit.</p>
+  <div class="card" style="max-width:520px">
+    <div class="metric" style="margin-bottom:14px"><div class="label">Includes</div>
+      <div class="note" style="font-size:12.5px;line-height:1.7">
+      Business info · Overall score · Critical errors · Warnings · Passed checks<br>
+      Keyword analysis · Review analytics · Optimization recommendations · 30-day action plan</div>
+    </div>
+    <button class="btn primary" id="downloadBtn2">Download report (.txt)</button>
+    <p class="note" style="margin-top:10px">A polished PDF layout is generated the same way once connected to a live profile — this demo exports a plain-text version of the same content.</p>
+  </div>`;
+}
+
+function viewSettings(){
+  return `
+  <h1>Settings</h1>
+  <div class="card" style="max-width:560px">
+    <div class="settings-row"><div><b>Google Business Profile connection</b><p>OAuth 2.0 — no password is ever requested or stored.</p></div><span class="pill">Not connected</span></div>
+    <div class="settings-row"><div><b>Business name</b><p>The Grind House Coffee</p></div><button class="btn">Edit</button></div>
+    <div class="settings-row"><div><b>Report email delivery</b><p>Off</p></div><button class="btn">Enable</button></div>
+    <div class="settings-row"><div><b>Workspace</b><p>Demo workspace · sample data</p></div><button class="btn">Manage</button></div>
+  </div>`;
+}
+
+const VIEWS = {dashboard:viewDashboard, audit:viewAudit, keywords:viewKeywords, reviews:viewReviews,
+  plan:viewPlan, performance:viewPerformance, reports:viewReports, settings:viewSettings};
+
+function showView(id){
+  document.querySelectorAll('.nav-item').forEach(b=>b.classList.toggle('active', b.dataset.id===id));
+  document.getElementById('views').innerHTML = `<div class="view">${VIEWS[id]()}</div>`;
+  if(id==='plan'){
+    renderPlanBody('7-day');
+    document.querySelectorAll('#planTabs .tab').forEach(t=>t.onclick=()=>{
+      document.querySelectorAll('#planTabs .tab').forEach(x=>x.classList.remove('active'));
+      t.classList.add('active'); renderPlanBody(t.dataset.k);
+    });
+  }
+  if(id==='reports'){
+    document.getElementById('downloadBtn2').onclick = downloadReport;
+  }
+}
+
+function downloadReport(){
+  const lines = [
+    'GBP SEO AUDIT PRO — Sample Report',
+    'Business: The Grind House Coffee (demo data)',
+    `Overall SEO score: 78/100`,
+    '',
+    '--- Critical issues ---',
+    ...ISSUES.filter(i=>i.level==='crit').map(i=>`- ${i.title}: ${i.desc}`),
+    '',
+    '--- Warnings ---',
+    ...ISSUES.filter(i=>i.level==='warn').map(i=>`- ${i.title}: ${i.desc}`),
+    '',
+    '--- Passed checks ---',
+    ...ISSUES.filter(i=>i.level==='pass').map(i=>`- ${i.title}`),
+    '',
+    '--- Keyword analysis ---',
+    ...KEYWORDS.map(k=>`- "${k.k}" (${k.loc}) — relevance ${k.rel}, risk ${k.risk}: ${k.rec}`),
+    '',
+    `--- Reviews --- ${REVIEWS.total} total, ${REVIEWS.avg} avg, ${REVIEWS.unanswered} unanswered`,
+    '',
+    '--- 30-day plan ---',
+    ...PLAN['30-day'].map(p=>`- [${p.pr}] ${p.p} → ${p.a}`),
+  ];
+  const blob = new Blob([lines.join('\n')], {type:'text/plain'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a'); a.href=url; a.download='gbp-audit-report.txt'; a.click();
+  URL.revokeObjectURL(url);
+}
+
+document.getElementById('downloadBtn').onclick = downloadReport;
+document.getElementById('connectBtn').onclick = ()=>alert('This demo does not perform live OAuth. In production this opens Google\'s OAuth 2.0 consent screen and never asks for a password.');
+
+showView('dashboard');
+</script>
+</body>
+</html>
