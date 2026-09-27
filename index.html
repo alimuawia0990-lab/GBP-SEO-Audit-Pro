@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="GBP SEO Audit Pro - Google Business Profile audit, review analytics, keyword risk checks and optimization planning.">
+  <title>GBP SEO Audit Pro</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="app">
+    <aside class="sidebar">
+      <div class="brand"><span class="brand-mark">G</span><div><b>GBP SEO</b><small>Audit Pro</small></div></div>
+      <nav>
+        <button class="nav-item active" data-section="dashboard">▦ <span>Dashboard</span></button>
+        <button class="nav-item" data-section="audit">✓ <span>Audit Profile</span></button>
+        <button class="nav-item" data-section="keywords">⌕ <span>Keywords</span></button>
+        <button class="nav-item" data-section="reviews">★ <span>Reviews</span></button>
+        <button class="nav-item" data-section="plan">☷ <span>Optimization Plan</span></button>
+        <button class="nav-item" data-section="performance">↗ <span>Performance</span></button>
+        <button class="nav-item" data-section="reports">▤ <span>Reports</span></button>
+      </nav>
+      <div class="side-note">
+        <b>Policy-safe by design</b>
+        <p>No fake reviews, keyword stuffing, fake locations or guaranteed rankings.</p>
+      </div>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <div>
+          <div class="eyebrow">LOCAL SEO TOOL</div>
+          <h1>Google Business Profile Audit</h1>
+        </div>
+        <div class="top-actions">
+          <button class="btn secondary" id="demoBtn">Load Demo</button>
+          <button class="btn primary" id="auditBtn">Run Audit</button>
+        </div>
+      </header>
+
+      <section id="dashboard" class="section active">
+        <div class="hero-card">
+          <div>
+            <span class="pill">GBP SEO AUDIT PRO</span>
+            <h2>Find profile issues. Build a safer optimization plan.</h2>
+            <p>Enter business details below or load the demo profile. The audit checks completeness, review health, keyword risks and common optimization gaps.</p>
+          </div>
+          <div class="score-ring" id="heroScore"><span>—</span><small>/100</small></div>
+        </div>
+
+        <div class="grid cards-4">
+          <div class="stat"><span>SEO Score</span><strong id="scoreStat">—</strong><small id="scoreStatus">Run an audit</small></div>
+          <div class="stat"><span>Reviews</span><strong id="reviewStat">—</strong><small id="ratingStat">Rating —</small></div>
+          <div class="stat"><span>Profile</span><strong id="profileStat">—</strong><small>Completeness</small></div>
+          <div class="stat"><span>Critical</span><strong id="criticalStat">—</strong><small id="warningStat">Warnings —</small></div>
+        </div>
+
+        <div class="grid two">
+          <div class="panel">
+            <div class="panel-head"><div><h3>Business information</h3><p>Audit input</p></div><span class="status-dot"></span></div>
+            <form id="profileForm" class="form-grid">
+              <label>Business name<input id="businessName" placeholder="e.g. BritGuard Locksmiths"></label>
+              <label>Primary category<input id="category" placeholder="e.g. Locksmith"></label>
+              <label>Phone<input id="phone" placeholder="+44 ..."></label>
+              <label>Website<input id="website" placeholder="https://example.com"></label>
+              <label>Address / service area<input id="location" placeholder="Bristol, UK"></label>
+              <label>Opening hours<input id="hours" placeholder="Mon-Sun, 24 hours"></label>
+              <label class="full">Description<textarea id="description" placeholder="Describe the business, services and history..."></textarea></label>
+              <label class="full">Services (comma separated)<input id="services" placeholder="Emergency Locksmith, Lock Repair, Lock Replacement"></label>
+              <label>Photos count<input id="photos" type="number" min="0" value="0"></label>
+              <label>Posts in last 30 days<input id="posts" type="number" min="0" value="0"></label>
+              <label>Review count<input id="reviewCount" type="number" min="0" value="0"></label>
+              <label>Average rating<input id="rating" type="number" min="0" max="5" step="0.1" value="0"></label>
+              <label>Unanswered reviews<input id="unanswered" type="number" min="0" value="0"></label>
+              <label class="full checkbox"><input id="authorized" type="checkbox"> I am the owner/authorized manager of this profile.</label>
+            </form>
+          </div>
+          <div class="panel">
+            <div class="panel-head"><div><h3>Quick audit</h3><p>Live results from the form</p></div></div>
+            <div id="quickResults" class="results empty">Run the audit to see issues and recommendations.</div>
+          </div>
+        </div>
+      </section>
+
+      <section id="audit" class="section">
+        <div class="section-title"><div><h2>Audit Profile</h2><p>Critical issues, warnings and passed checks.</p></div></div>
+        <div id="auditResults" class="audit-list empty">Run an audit first.</div>
+      </section>
+
+      <section id="keywords" class="section">
+        <div class="section-title"><div><h2>Keyword Safety</h2><p>Checks for stuffing and risky naming patterns. It does not recommend adding keywords to the business name.</p></div></div>
+        <div class="panel">
+          <div id="keywordResults" class="keyword-list empty">Run an audit first.</div>
+        </div>
+      </section>
+
+      <section id="reviews" class="section">
+        <div class="section-title"><div><h2>Review Analytics</h2><p>Use authorized Google data when connected; demo values are clearly labeled.</p></div></div>
+        <div class="grid cards-4">
+          <div class="stat"><span>Total reviews</span><strong id="rTotal">—</strong></div>
+          <div class="stat"><span>Average rating</span><strong id="rAvg">—</strong></div>
+          <div class="stat"><span>Unanswered</span><strong id="rUnanswered">—</strong></div>
+          <div class="stat"><span>Response rate</span><strong id="rResponse">—</strong></div>
+        </div>
+        <div class="panel">
+          <h3>Review health</h3>
+          <div id="reviewBars" class="bars empty">Run an audit first.</div>
+        </div>
+      </section>
+
+      <section id="plan" class="section">
+        <div class="section-title"><div><h2>Optimization Plan</h2><p>A practical 7 / 30 / 60 day checklist based on the audit.</p></div></div>
+        <div class="grid three">
+          <div class="panel plan"><span class="pill">7 DAYS</span><h3>Fix the basics</h3><ul id="plan7"></ul></div>
+          <div class="panel plan"><span class="pill">30 DAYS</span><h3>Build profile depth</h3><ul id="plan30"></ul></div>
+          <div class="panel plan"><span class="pill">60 DAYS</span><h3>Measure & improve</h3><ul id="plan60"></ul></div>
+        </div>
+      </section>
+
+      <section id="performance" class="section">
+        <div class="section-title"><div><h2>Performance</h2><p>Connect the official API to replace demo metrics with authorized profile data.</p></div></div>
+        <div class="panel api-card">
+          <div class="api-icon">G</div>
+          <div><h3>Connect Google Business Profile</h3><p>OAuth 2.0 connection placeholder. Production integration requires Google Cloud setup and approved Business Profile API access.</p></div>
+          <button class="btn primary" id="connectBtn">Connect</button>
+        </div>
+        <div class="grid cards-4">
+          <div class="stat"><span>Search views</span><strong id="mSearch">—</strong></div>
+          <div class="stat"><span>Maps views</span><strong id="mMaps">—</strong></div>
+          <div class="stat"><span>Website clicks</span><strong id="mWeb">—</strong></div>
+          <div class="stat"><span>Phone clicks</span><strong id="mCalls">—</strong></div>
+        </div>
+      </section>
+
+      <section id="reports" class="section">
+        <div class="section-title"><div><h2>Reports</h2><p>Generate a printable audit report from the current results.</p></div><button class="btn primary" id="printBtn">Print / Save PDF</button></div>
+        <div id="reportPreview" class="report empty">Run an audit first.</div>
+      </section>
+    </main>
+  </div>
+  <div id="toast" class="toast"></div>
+  <script src="app.js"></script>
+</body>
+</html>
